@@ -72,4 +72,4 @@ function Chat({messages, input, onInput, onSend}) {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);

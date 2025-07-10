@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sqlite3
 import json
 from pathlib import Path
