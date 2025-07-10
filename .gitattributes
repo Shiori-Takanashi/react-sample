@@ -1,0 +1,9 @@
+*.json    text eol=lf
+*.py      text eol=lf
+*.js      text eol=lf
+*.html    text eol=lf
+*.css     text eol=lf
+*.gitignore text eol=lf
+.gitattributes text eol=lf
+*.db binary
+*.pyc binary
