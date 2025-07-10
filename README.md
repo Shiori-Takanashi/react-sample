@@ -1,7 +1,7 @@
 # react-sample
-chat-gptのウェブ版の模倣
+ChatGPT の簡易 Web UI サンプルです。
 
-## sampleディレクトリ
-sample.jsonを読み込んで、index.htmlとscripts.jsとstyle.cssでUIを構築したい。
-もともとはsample.dbを読み込む予定だったが、jsonを読み込むことに変更した。
-現段階では全くうまくいっていない。
+## sample ディレクトリ
+`sample` には React を使ったシンプルなチャット画面があります。
+`data/sample.json` を読み込んでセッションとメッセージを表示します。
+CDN 経由で React を読み込むだけの軽量な構成です。
