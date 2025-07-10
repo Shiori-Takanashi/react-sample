@@ -4,170 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Web UI Mock</title>
+    <title>ChatGPT Clone</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
     <div class="app-container">
         <!-- サイドバー -->
-        <div class="sidebar">
+        <aside class="sidebar">
             <div class="sidebar-header">
-                <button class="new-chat-btn">
-                    <span class="icon">+</span>
+                <button class="new-chat-btn" onclick="createNewChat()">
+                    <i class="fas fa-plus"></i>
                     新しいチャット
                 </button>
             </div>
 
-            <div class="chat-history">
-                <div class="chat-item active">
-                    <span class="icon">💬</span>
-                    <span>React開発について</span>
-                    <button class="delete-btn">
-                        <span class="icon">🗑️</span>
-                    </button>
-                </div>
-                <div class="chat-item">
-                    <span class="icon">💬</span>
-                    <span>CSS Grid レイアウト</span>
-                    <button class="delete-btn">
-                        <span class="icon">🗑️</span>
-                    </button>
-                </div>
-                <div class="chat-item">
-                    <span class="icon">💬</span>
-                    <span>JavaScript 非同期処理</span>
-                    <button class="delete-btn">
-                        <span class="icon">🗑️</span>
-                    </button>
-                </div>
-                <div class="chat-item">
-                    <span class="icon">💬</span>
-                    <span>TypeScript 型定義</span>
-                    <button class="delete-btn">
-                        <span class="icon">🗑️</span>
-                    </button>
-                </div>
+            <div class="chat-history" id="chatHistory">
+                <!-- チャット履歴がここに動的に追加されます -->
             </div>
 
             <div class="sidebar-footer">
                 <div class="user-info">
-                    <div class="user-avatar">
-                        <span class="icon">👤</span>
-                    </div>
+                    <div class="user-avatar">U</div>
                     <div class="user-details">
-                        <span class="user-name">ユーザー名</span>
+                        <span class="user-name">ユーザー</span>
                         <span class="user-email">user@example.com</span>
                     </div>
                     <button class="settings-btn">
-                        <span class="icon">⚙️</span>
+                        <i class="fas fa-cog"></i>
                     </button>
                 </div>
             </div>
-        </div>
+        </aside>
 
         <!-- メインコンテンツ -->
-        <div class="main-content">
+        <main class="main-content">
             <div class="chat-header">
                 <div class="model-selector">
-                    <select>
-                        <option>GPT-4</option>
-                        <option>GPT-3.5</option>
-                        <option>Claude</option>
+                    <select id="modelSelect">
+                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                        <option value="gpt-4">GPT-4</option>
                     </select>
                 </div>
                 <div class="chat-actions">
-                    <button class="action-btn">
-                        <span class="icon">📤</span>
+                    <button class="action-btn" onclick="clearChat()">
+                        <i class="fas fa-broom"></i>
                     </button>
-                    <button class="action-btn">
-                        <span class="icon">⋮</span>
+                    <button class="action-btn" onclick="exportChat()">
+                        <i class="fas fa-download"></i>
                     </button>
                 </div>
             </div>
 
-            <div class="chat-container">
-                <div class="chat-messages" id="chatMessages">
-                    <!-- ユーザーメッセージ -->
-                    <div class="message user-message">
-                        <div class="message-content">
-                            <div class="message-text">
-                                ChatGPT Web UIのモックを作成してください。HTMLとCSSを使って、モダンで美しいデザインにしてください。
-                            </div>
-                        </div>
-                        <div class="message-avatar">
-                            <span class="icon">👤</span>
-                        </div>
-                    </div>
-
-                    <!-- アシスタントメッセージ -->
-                    <div class="message assistant-message">
-                        <div class="message-avatar">
-                            <span class="icon">🤖</span>
-                        </div>
-                        <div class="message-content">
-                            <div class="message-text">
-                                承知いたしました。ChatGPT Web UIのモックを作成します。以下の要素を含む現代的なデザインを作成しています：
-
-                                <ul>
-                                    <li>サイドバーでのチャット履歴管理</li>
-                                    <li>レスポンシブデザイン</li>
-                                    <li>ダークモード対応</li>
-                                    <li>モダンなタイポグラフィ</li>
-                                    <li>アニメーション効果</li>
-                                </ul>
-
-                                このUIは実際のChatGPTインターフェースを参考にしており、使いやすさと美しさを両立しています。
-                            </div>
-                            <div class="message-actions">
-                                <button class="action-btn">
-                                    <span class="icon">📋</span>
-                                </button>
-                                <button class="action-btn">
-                                    <span class="icon">👍</span>
-                                </button>
-                                <button class="action-btn">
-                                    <span class="icon">👎</span>
-                                </button>
-                                <button class="action-btn">
-                                    <span class="icon">🔄</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- タイピングインジケーター -->
-                    <div class="message assistant-message typing" style="display: none;">
-                        <div class="message-avatar">
-                            <span class="icon">🤖</span>
-                        </div>
-                        <div class="message-content">
-                            <div class="typing-indicator">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="chat-container" id="chatContainer">
+                <!-- メッセージがここに動的に追加されます -->
+                <div id="loading-message" class="loading">
+                    <div class="loading-spinner"></div>
+                    データを読み込んでいます...
                 </div>
             </div>
 
             <div class="input-container">
                 <div class="input-wrapper">
-                    <textarea id="messageInput" placeholder="メッセージを入力してください..." rows="1"></textarea>
-                    <button class="send-btn" id="sendBtn">
-                        <span class="icon">📤</span>
+                    <textarea id="messageInput" placeholder="メッセージを入力してください..." onkeydown="handleKeyDown(event)"
+                        rows="1"></textarea>
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
                 <div class="input-info">
-                    <span>ChatGPT can make mistakes. Consider checking important information.</span>
+                    ChatGPT Cloneは間違いを犯すことがあります。重要な情報は確認してください。
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 共有モーダル -->
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <h3>メッセージを共有</h3>
+                <button class="close-btn" onclick="closeShareModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="share-modal-body">
+                <div class="share-message-preview">
+                    <div class="share-message-text" id="shareMessageText"></div>
+                </div>
+                <div class="share-options">
+                    <div class="share-option" onclick="shareViaEmail()">
+                        <i class="fas fa-envelope"></i>
+                        <span>メールで共有</span>
+                    </div>
+                    <div class="share-option" onclick="shareViaClipboard()">
+                        <i class="fas fa-copy"></i>
+                        <span>クリップボードにコピー</span>
+                    </div>
+                    <div class="share-option" onclick="shareViaSystem()">
+                        <i class="fas fa-share-alt"></i>
+                        <span>システム共有</span>
+                    </div>
+                    <div class="share-option" onclick="shareAsFile()">
+                        <i class="fas fa-file-download"></i>
+                        <span>ファイルとして保存</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="data/sample.js"></script>
+    <script src="scripts.js"></script>
 </body>
 
 </html>
